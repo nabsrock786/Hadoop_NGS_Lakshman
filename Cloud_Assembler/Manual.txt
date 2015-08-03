@@ -1,0 +1,18 @@
+----------------------------
+Requirement: Hadoop cluster
+----------------------------
+step 1: convert *.fastq to *.sfa
+
+e.g. perl data/preprocessor.pl -renum data/Ec10k.fastq > data/Ec10k.sfa
+
+step 2: upload *.sfa to HDFS
+
+e.g. hadoop fs -put data/Ec10k.sfa Ec10k
+
+step 3 perform the CloudBrush using hadoop cluster
+
+e.g. hadoop jar CloudBrush.jar -reads Ec10k -asm Ec10k_Genome -k 21 -readlen 36
+
+step 4 download *.fasta from HDFS
+
+e.g. hadoop fs -cat Ec10k_Genome/* > Ec10k_Genome.fasta
